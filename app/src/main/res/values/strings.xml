@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">univalle19</string>
+    <string name="btnBack">Volver</string>
+    <string name="passwd">Ingrese su Contraseña</string>
+    <string name="userId">Ingrese su Usuario</string>
+</resources>
