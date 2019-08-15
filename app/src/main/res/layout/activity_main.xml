@@ -35,10 +35,44 @@
         android:layout_height="wrap_content" />
 
     <Button
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:id="@+id/btn2"
         android:onClick="irHome"
-        android:text="Enlinea" />
+        android:text="Ingresar" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn3"
+        android:text="Recuperar" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn4"
+        android:background="@color/colorAccent"
+        android:text="Colorear" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/tvContador"
+        android:layout_height="wrap_content" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn5"
+        android:background="@color/colorPrimary"
+        android:text="Contar" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn6"
+        android:background="@color/colorAccent"
+        android:text="Servicio" />
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:id="@+id/fragmentRecuperar"
+        android:layout_height="match_parent">
+    </FrameLayout>
+
 </LinearLayout>
