@@ -16,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.usuario.univalle19.BaseDatos.Conexion;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -52,6 +54,9 @@ public class Servicio extends Fragment implements View.OnClickListener{
 
     Conexion con;
     SQLiteDatabase db;
+
+    FirebaseDatabase database;
+    DatabaseReference myRef;
 
     View rootView;
     Button btnId, btnAll;
@@ -105,6 +110,10 @@ public class Servicio extends Fragment implements View.OnClickListener{
         if(con!=null){
             Toast.makeText(getContext(),"Database create",Toast.LENGTH_LONG).show();
         }
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("message");
+        myRef.setValue("Hello, World!");
+
     }
 
     @Override
@@ -172,6 +181,12 @@ public class Servicio extends Fragment implements View.OnClickListener{
         }
     }
 
+    public void writeFirebase(String  name, String id){
+        //myRef.child("estudiantes").setValue(name);
+
+        myRef.child("estudiantes").child(id).setValue(name);
+    }
+
     public class ApiEstudiantes extends AsyncTask<String,String,String>{
 
         String nombre="";
@@ -223,13 +238,16 @@ public class Servicio extends Fragment implements View.OnClickListener{
                         System.out.println("......++"+resultJSON);
 
                         if (resultJSON==1){      // hay alumnos a mostrar
-                            System.out.println("gsdgsdfsdfsdfsdf");
+                            // System.out.println("gsdgsdfsdfsdfsdf");
                             JSONArray alumnosJSON = respuestaJSON.getJSONArray("alumnos");   // estado es el nombre del campo en el JSON
                             for(int i=0;i<alumnosJSON.length();i++){
                                 devuelve = devuelve + alumnosJSON.getJSONObject(i).getString("idAlumno") + " " +
                                         alumnosJSON.getJSONObject(i).getString("nombre") + " " +
                                         alumnosJSON.getJSONObject(i).getString("direccion") + "\n";
                                 System.out.println(devuelve);
+                                String query = "INSERT INTO estudiantes (nombre,direccion) values ('"+alumnosJSON.getJSONObject(i).getString("nombre")+"','"+alumnosJSON.getJSONObject(i).getString("direccion")+"');";
+                                db.execSQL(query);  /// mundo de lo autocontenido y relacional
+                                writeFirebase(alumnosJSON.getJSONObject(i).getString("nombre"),alumnosJSON.getJSONObject(i).getString("idAlumno"));
                                 publishProgress(devuelve);
                             }
                         }

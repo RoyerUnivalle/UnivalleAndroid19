@@ -12,7 +12,7 @@ public class Conexion extends SQLiteOpenHelper{
 
     public String  query = "CREATE TABLE usuarios " +
             "(id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            "old_passwd TEXT, new_passwd TEXT)";
+            "old_passwd TEXT, new_passwd TEXT);";
 
     public Conexion(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -20,6 +20,11 @@ public class Conexion extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        System.out.println(query);
+        db.execSQL(query);
+        query = "  CREATE TABLE estudiantes " +
+                "(idalumno INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "nombre TEXT, direccion TEXT);";
         db.execSQL(query);
     }
 
